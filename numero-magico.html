@@ -532,13 +532,13 @@
             <div class="game-container">
                 <h1 class="game-title">Número Mágico</h1>
                 <p class="game-description">
-                    ¡Adivina el número secreto entre 1 y 100! Tienes 10 intentos para descubrirlo.<br>
+                    ¡Adivina el número secreto entre 1 y 10! Tienes 3 intentos para descubrirlo.<br>
                     Ingresa un número y presiona "Adivinar". Te daré pistas si es mayor o menor.
                 </p>
                 
                 <div class="game-content">
                     <div class="game-controls">
-                        <input type="number" id="guess-input" class="game-input" min="1" max="100" placeholder="1-100" autofocus>
+                        <input type="number" id="guess-input" class="game-input" min="1" max="10" placeholder="1-10" autofocus>
                         <button id="guess-btn" class="game-btn">Adivinar</button>
                     </div>
                     
@@ -550,7 +550,7 @@
                         
                         <div class="stat-box">
                             <div class="stat-label">Restantes</div>
-                            <div id="remaining-count" class="stat-value">10</div>
+                            <div id="remaining-count" class="stat-value">3</div>
                         </div>
                     </div>
                     
@@ -584,7 +584,7 @@
             constructor() {
                 this.secretNumber = this.generateRandomNumber();
                 this.attempts = 0;
-                this.maxAttempts = 10;
+                this.maxAttempts = 3; // Cambiado a 3 intentos
                 this.attemptsList = [];
                 this.gameActive = true;
                 
@@ -609,9 +609,9 @@
                 this.updateUI();
             }
             
-            // Generar número aleatorio
+            // Generar número aleatorio entre 1 y 10
             generateRandomNumber() {
-                return Math.floor(Math.random() * 100) + 1;
+                return Math.floor(Math.random() * 10) + 1;
             }
             
             // Comprobar el intento del jugador
@@ -627,8 +627,8 @@
                     return;
                 }
                 
-                if (userGuess < 1 || userGuess > 100) {
-                    this.showMessage("El número debe estar entre 1 y 100", "shake");
+                if (userGuess < 1 || userGuess > 10) {
+                    this.showMessage("El número debe estar entre 1 y 10", "shake");
                     return;
                 }
                 
@@ -675,11 +675,11 @@
             getAdvancedHint() {
                 const difference = Math.abs(this.secretNumber - this.attemptsList[this.attemptsList.length - 1]);
                 
-                if (difference > 30) {
+                if (difference > 5) {
                     return "Estás muy lejos del número";
-                } else if (difference > 15) {
+                } else if (difference > 3) {
                     return "Estás algo lejos del número";
-                } else if (difference > 5) {
+                } else if (difference > 1) {
                     return "Estás cerca del número";
                 } else {
                     return "¡Estás muy cerca!";
